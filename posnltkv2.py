@@ -3,20 +3,24 @@
 import sys
 import nltk
 from nltk.corpus import wordnet
-    
+
+
+# check for stopwords, ie, words like 'the', 'and', 'for'
+# which are not included in WordNet 
 def is_stopword(string):
   if string.lower() in nltk.corpus.stopwords.words('english'):
     return True
   else:
     return False
     
+# check for punctuation
 def is_punctuation(string):
   for char in string:
     if char.isalpha() or char.isdigit():
       return False
   return True
   
-  
+# maps the NLTK POS code to the WordNet Part Of Speech(POS) code
 def wordnet_pos_code(tag):
   if tag.startswith('NN'):
     return wordnet.NOUN
@@ -29,7 +33,7 @@ def wordnet_pos_code(tag):
   else:
     return ''
     
-    
+# returns the label of the POS tag    
 def wordnet_pos_label(tag):
   if tag.startswith('NN'):
     return "Noun"
@@ -42,7 +46,7 @@ def wordnet_pos_label(tag):
   else:
     return tag
     
-    
+#     
 def wordnet_definitions(sentence):
   wnl = nltk.WordNetLemmatizer()
   for token in sentence:
@@ -60,7 +64,11 @@ def wordnet_definitions(sentence):
     else:
       pass
   return sentence
-  
+
+
+# returns the longest common POS substrings.
+# used to compare the strings generated from the POS tags
+# of the example sentences w.r.t. the sentence provided by the user  
 def longest_common_substring(s1, s2):
   m = [[0] * (1+len(s2)) for i in xrange(1 + len(s1))]
   longest, x_longest = 0,0
