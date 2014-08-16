@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Word Sense Disambiguation</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+	<div class="jumbotron">
+		<h1>Word Sense Disambiguation</h1>
+		<div class="form-group">
+			<form method="POST" action="cgi-bin/wsdfinal.py">
+			<p>
+				<label class="control-label" for="sent">Enter the sentence: </label>
+				<input class="form-control" id="sent" type="text" name="sent">
+				<br>
+				<label class="control-label" for="index">Enter index: </label>
+				<input class="form-control" id="index" type="text" name="index">
+			</p>
+			<button type="submit" class="btn btn-primary">Disambiguate!</button>
+			</form>
+		</div>
+	</div>
+</body>
