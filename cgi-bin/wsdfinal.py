@@ -188,10 +188,25 @@ def main():
           <br><br>
       		<span class="text-primary"><h3>Best Sense :</h3></span>
           <span class="text-info"><h4>%s</h4></span>
+          <br><br>
+          <span class="text-primary"><h3>Definitions :</h3></span>
+  """%(prev, selected_word ,nxt, output)
+
+  i=1
+  for synset in wordnet.synsets(selected_word):
+    print """
+      <h4>
+      <span class="text-warning">%s)</span>
+      <span class="text-info">%s<span>
+      </h4>
+    """%(str(i),str(synset.definition))
+    i=i+1
+
+  print """
       </div>
     </body>
-	</html>
-  """%(prev, selected_word ,nxt, output)
+  </html>
+  """
   
 if __name__ == '__main__':
   main()
