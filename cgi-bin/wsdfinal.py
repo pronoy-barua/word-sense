@@ -16,7 +16,7 @@ print """
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Sense Disambiguation</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap.min.css">
   </head>			
 """
 
@@ -174,15 +174,24 @@ def main():
   else:  
     output = word_sense_disambiguate(word, wn_pos, sent_def).definition
   
+  prev,nxt = " ".join(sent.split(" ")[:index]), " ".join(sent.split(" ")[index+1:])
+  selected_word=sent.split(" ")[index]
 
-  
   print """
-    <p class="sentence">Sentence : %s</p>
-    <p class="index">Index : %s</p>
-		<p class="sense">Best Sense : %s</p>
-	  </body>
-	  </html>
-  """%(sent, index,output)
+    <body>
+      <div class="jumbotron">
+        <h1>
+          <span class="text-primary">%s</span>
+          <span class="text-success">%s</span>
+          <span class="text-primary">%s</span>
+        </h1>
+          <br><br>
+      		<span class="text-primary"><h3>Best Sense :</h3></span>
+          <span class="text-info"><h4>%s</h4></span>
+      </div>
+    </body>
+	</html>
+  """%(prev, selected_word ,nxt, output)
   
 if __name__ == '__main__':
   main()
