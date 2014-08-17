@@ -170,7 +170,7 @@ def main():
  
   senses = pos_disambiguate(word, marked_str, word_pos)
   if senses != 0:
-    output = '\n\n'.join(senses)
+    output = '<br><br>'.join(senses)
   else:  
     output = word_sense_disambiguate(word, wn_pos, sent_def).definition
   
@@ -182,7 +182,7 @@ def main():
       <div class="jumbotron">
         <h1>
           <span class="text-primary">%s</span>
-          <span class="text-success">%s</span>
+          <span class="text-success"><em>%s</em></span>
           <span class="text-primary">%s</span>
         </h1>
           <br><br>
