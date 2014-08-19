@@ -198,11 +198,18 @@ def main():
       <h4>
       <span class="text-warning">%s)</span>
       <span class="text-info">%s<span>
-      </h4>
     """%(str(i),str(synset.definition))
+    if synset.examples==[]:
+      print """
+        <span class="text-warning">&#185;</span>
+      """
+    print """
+      </h4>
+    """
     i=i+1
 
   print """
+      <h5 class="text-warning" align="right">&#185; : No examples found.</h5>
       </div>
     </body>
   </html>
