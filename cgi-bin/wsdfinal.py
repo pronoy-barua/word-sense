@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#!C:\Python27\python.exe -u
 
 import cgi
 import cgitb; cgitb.enable()  # for troubleshooting
@@ -72,7 +73,7 @@ def wordnet_definitions(sentence):
     elif len(wordnet.synsets(word, wn_pos)) > 0:
       token['wn_lemma'] = wnl.lemmatize(word.lower())
       token['wn_pos'] = wordnet_pos_label(token['pos'])
-      defs = [sense.definition for sense in wordnet.synsets(word, wn_pos)]
+      defs = [sense.definition() for sense in wordnet.synsets(word, wn_pos)]
       token['wn_def'] = "; \n".join(defs) 
     else:
       pass
@@ -98,7 +99,7 @@ def pos_disambiguate(word, marked_str, word_pos):
   max_length = len(word_pos) + 3
   senses = []
   for synset in wordnet.synsets(word):
-    for example in synset.examples:
+    for example in synset.examples():
       tokens = nltk.word_tokenize(example)
       tag_tuples = nltk.pos_tag(tokens)
       word_index = [i for i, j in enumerate(tokens) if j==word]
@@ -115,30 +116,16 @@ def pos_disambiguate(word, marked_str, word_pos):
       #marked pos string generated for example
       lcs_str = longest_common_substring(marked_str,ex_marked_str)
       if (word_pos in lcs_str) and (len(lcs_str) >= max_length):
-        senses.append(synset.definition)
+        senses.append(synset.definition())
         max_length = len(lcs_str)
         break
         
       
-  if len(senses) > 1:
+  if len(senses) >= 1:
     return senses
   return 0
   
 
-  
-def word_sense_disambiguate(word, wn_pos, sentence):
-  senses = wordnet.synsets(word, wn_pos)
-  cfd = nltk.ConditionalFreqDist(
-             (sense, def_word)
-             for sense in senses
-             for def_word in sense.definition.split())
-             #if def_word in sentence)
-  best_sense = senses[0] # start with first sense
-  for sense in senses:
-    if cfd[sense].max() > cfd[best_sense].max():
-      best_sense = sense
-  return best_sense
-  
 def main():
 
   form = cgi.FieldStorage()
@@ -172,7 +159,7 @@ def main():
   if senses != 0:
     output = '<br><br>'.join(senses)
   else:  
-    output = word_sense_disambiguate(word, wn_pos, sent_def).definition
+    output = 'No results found.'
   
   prev,nxt = " ".join(sent.split(" ")[:index]), " ".join(sent.split(" ")[index+1:])
   selected_word=sent.split(" ")[index]
@@ -198,8 +185,8 @@ def main():
       <h4>
       <span class="text-warning">%s)</span>
       <span class="text-info">%s<span>
-    """%(str(i),str(synset.definition))
-    if synset.examples==[]:
+    """%(str(i),str(synset.definition()))
+    if synset.examples()==[]:
       print """
         <span class="text-warning">&#185;</span>
       """
