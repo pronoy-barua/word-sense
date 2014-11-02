@@ -1,4 +1,4 @@
 ### Setup Summary:
-1.  [Install NLTK](http://www.nltk.org/install.html)
+1.  [Install NLTK](http://www.nltk.org/install.html) version 3.0.0
 2.  Install NLTK data: maxent_treebank_pos_tagger, punkt, stopwords, wordnet,
 3.  ~/repos/wsdrepo$ python -m CGIHTTPServer
