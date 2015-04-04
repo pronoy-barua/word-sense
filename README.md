@@ -1,4 +1,11 @@
-### Setup Summary:
-1.  [Install NLTK](http://www.nltk.org/install.html) version 3.0.0
-2.  Install NLTK data: maxent_treebank_pos_tagger, punkt, stopwords, wordnet,
-3.  ~/repos/wsdrepo$ python -m CGIHTTPServer
+### Word Sense Disambiguation 
+
+Dependencies: Python(2.7.x) and NLTK(3.0.0)
+
+Install NLTK data: maxent_treebank_pos_tagger, punkt, stopwords, wordnet. 
+
+```
+#!bash
+
+$ python -m CGIHTTPServer
+```
